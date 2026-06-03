@@ -81,8 +81,8 @@ public class CustomerService {
         return c.getAccounts().isEmpty() ? null : c.getAccounts();
     }    
 
-    public void CreateCustomer(String name, String email) {
-        repository.AddCustomer(name, email);
+    public Customer CreateCustomer(String name, String email) {
+        return repository.AddCustomer(name, email);
     }
 
     public void UpdateCustomer(Long id, Customer c) {

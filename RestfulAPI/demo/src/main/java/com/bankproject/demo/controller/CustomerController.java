@@ -67,8 +67,8 @@ public class CustomerController {
         
     
     @PostMapping("/customers")
-    public void createCustomer(@RequestBody String name, String email) {
-        service.createCustomer(name,email);
+    public Customer createCustomer(@RequestBody String name, String email) {
+        return service.createCustomer(name,email);
     }
     
     
