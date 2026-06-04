@@ -67,23 +67,42 @@ public class CustomerController {
         
     
     @PostMapping("/customers")
-    public Customer createCustomer(@RequestBody String name, String email) {
-        return service.createCustomer(name,email);
+    public Customer createCustomer() {
+        return service.CreateCustomer(); //should return id
     }
     
     
-    @PutMapping("/{id}")
+    @PutMapping("/customers/{id}")
     public Customer updateCustomer(
             @PathVariable Long id,
             @RequestBody Customer customer) {
 
-        return service.updateCustomer(id, customer);
+        return service.UpdateCustomer(id, customer);
     }
 
-    /*
-    @DeleteMapping("/{id}")
+    
+    @DeleteMapping("/customers/{id}")
     public void deleteCustomer(@PathVariable Long id) {
         service.deleteCustomer(id);
     }
-    */
+
+    @PostMapping("/accounts")
+    public Account createAccount(@RequestBody Long customerId) {
+        return service.CreateAccount(customerId);
+    }
+
+    @PutMapping("/accounts/{id}")
+    public void updateAccount(
+            @PathVariable Long id,
+            @RequestBody Account account) {
+        // Implement account update logic here
+        service.UpdateAccount(id, account);
+    }
+
+    @DeleteMapping("/accounts/{id}")
+    public void deleteAccount(@PathVariable Long id) {
+        // Implement account deletion logic here
+        service.DeleteAccount(id);
+    }
+    
 }

@@ -74,8 +74,13 @@ public class CustomerRepository {
         List<Account> accs = c.getAccounts();
         accounts.addAll(accs);
     }
+    public Customer AddCustomer(){
+        Customer c = new Customer(counter++, "Default Name", "Default Email", new ArrayList<>());
+        customers.add(c);
+        return c;
+    }
 
-    public void UpdateCustomer(Long id, Customer c) {
+    public Customer UpdateCustomer(Long id, Customer c) {
         Customer existing = findById(id);
         if (existing == null) {
             throw new IllegalArgumentException("Customer with ID " + id + " does not exist");
@@ -83,5 +88,52 @@ public class CustomerRepository {
         existing.setName(c.getName());
         existing.setEmail(c.getEmail());
         existing.setAccounts(c.getAccounts());
+        return existing;
+    }
+    public void deleteCustomer(Long id) {
+        Customer existing = findById(id);
+        if (existing != null) {
+            List<Account> accs = existing.getAccounts();
+            accounts.removeAll(accs);
+            int i = customers.indexOf(existing);
+            customers.remove(i);
+        }
+    }
+    public Account AddAccount(Long customerId){
+        Customer c = findById(customerId);
+        if (c == null) {
+            throw new IllegalArgumentException("Customer with ID " + customerId + " does not exist");
+        }
+        Account a = new Account(counter++,"Default Account Number", "Checking", 0.0);
+        c.getAccounts().add(a);
+        accounts.add(a);
+        return a;
+    }
+
+    public void UpdateAccount(Long id, Account a) {
+        for (Account acc : accounts) {
+            if (Objects.equals(acc.getId(), id)) {
+                acc.setAccountNumber(a.getAccountNumber());
+                acc.setAccountType(a.getAccountType());
+                acc.setBalance(a.getBalance());
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Account with ID " + id + " does not exist");
+    }
+
+    public void DeleteAccount(Long id) {
+        for (Account acc : accounts) {
+            if (Objects.equals(acc.getId(), id)) {
+                accounts.remove(acc);
+                // Also remove from customer's account list
+                for (Customer c : customers) {
+                    c.getAccounts().removeIf(a -> Objects.equals(a.getId(), id));
+                }
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Account with ID " + id + " does not exist");
+
     }
 }

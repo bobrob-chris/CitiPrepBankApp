@@ -84,22 +84,26 @@ public class CustomerService {
     public Customer CreateCustomer(String name, String email) {
         return repository.AddCustomer(name, email);
     }
-
-    public void UpdateCustomer(Long id, Customer c) {
-        repository.UpdateCustomer(id, c);
-    }
-    /*
-    public Customer createCustomer(Customer customer) {
-        return repository.save(customer);
+    public Customer CreateCustomer(){
+        return repository.AddCustomer();
     }
 
-    public Customer updateCustomer(int id, Customer customer) {
-        customer.setId(id);
-        return repository.save(customer);
+    public Customer UpdateCustomer(Long id, Customer c) {
+        return repository.UpdateCustomer(id, c);
+    }
+    public void deleteCustomer(Long id) {
+        repository.deleteCustomer(id);
     }
 
-    public void deleteCustomer(int id) {
-        repository.delete(id);
+    public Account CreateAccount(Long customerId) {
+        return repository.AddAccount(customerId);
     }
-        */
+
+    public void UpdateAccount(Long accountId, Account account) {
+        repository.UpdateAccount(accountId, account);
+    }
+
+    public void DeleteAccount(Long accountId) {
+        repository.DeleteAccount(accountId);
+    }
 }
