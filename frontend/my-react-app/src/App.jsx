@@ -6,6 +6,32 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [customers, setCustomers] = useState([{"id":1,"name":"john","email":"none","accounts":[]}])
+  const [accounts, setAccounts] = useState([])
+  const [selectedCustomer, setSelectedCustomer] = useState(null)
+
+  const [customerName, setCustomerName] = useState('')
+  const [customerEmail, setCustomerEmail] = useState('')
+  const [customerId, setCustomerId] = useState('')
+
+  
+  async function loadCustomers() {
+    try {
+      const response = await fetch(
+        'http://localhost:8080/api/customers'
+      )
+      const data = await response.json()
+      
+      setCustomers(data)
+    } catch (error) {
+      console.error('Error loading customers:', error)
+    }
+    
+
+  }
+
+  
+
 
   return (
     <>
@@ -16,106 +42,53 @@ function App() {
             Under construction. Please check back later for updates on our progress. We
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-        <button
-          type = "button"
-          className="Join"  
+        <div>
+          <h2>Customers</h2>
+          <p>Select a customer to view account details.</p>
+
+          <button
+            type="button"
+            onClick={loadCustomers}
           >
-            Join
-        </button>
+            Refresh Customers
+          </button>
+        </div>
+
+
+        <div className="customer-grid">
+          {customers.length === 0 ? (
+            <p>No customers found.</p>
+          ) : (
+            customers.map((customer) => (
+              <div
+                key={customer.id}
+                className="customer-card"
+                onClick={() => setSelectedCustomer(customer)}
+              >
+                <h3>{customer.name}</h3>
+
+                <p>
+                  <strong>ID:</strong> {customer.id}
+                </p>
+
+                <p>
+                  <strong>Email:</strong> {customer.email}
+                </p>
+
+                <p>
+                  <strong>Accounts:</strong>{' '}
+                  {customer.accounts?.length ?? 0}
+                </p>
+              </div>
+            ))
+          )}
+        </div>
+        
       </section>
 
-      <div className="ticks"></div>
+      
+      
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
     </>
   )
 }
