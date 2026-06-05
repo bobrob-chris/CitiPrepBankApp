@@ -1,11 +1,15 @@
 package com.bankproject.demo.model;
 
-import com.bankproject.demo.model.Account;
-import java.util.*;
+import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "customers")
 public class Customer {
 
-    private Long id;
+    @Id
+    private String id;
     private String name;
     private String email;
     private List<Account> accounts;
@@ -13,18 +17,18 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long id, String name, String email, List<Account> accounts) {
+    public Customer(String id, String name, String email, List<Account> accounts) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.accounts = accounts;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
