@@ -6,47 +6,7 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [customers, setCustomers] = useState([
-    {
-        "id": 0,
-        "name": "John Doe",
-        "email": "john@outlook.com",
-        "accounts": [
-            {
-                "id": 3,
-                "accountNumber": "123456789",
-                "accountType": "Checking",
-                "balance": 1000.0
-            }
-        ]
-    },
-    {
-        "id": 1,
-        "name": "Jane Smith",
-        "email": "jane@yahoo.com",
-        "accounts": [
-            {
-                "id": 4,
-                "accountNumber": "230234543",
-                "accountType": "Saving",
-                "balance": 5000.0
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Andy Brown",
-        "email": "andy@gmail.com",
-        "accounts": [
-            {
-                "id": 5,
-                "accountNumber": "345678901",
-                "accountType": "Checking",
-                "balance": 2000.0
-            }
-        ]
-    }
-])
+  const [customers, setCustomers] = useState([])
   const [accounts, setAccounts] = useState([])
   const [selectedCustomer, setSelectedCustomer] = useState(null)
 
