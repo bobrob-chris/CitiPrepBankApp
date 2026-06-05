@@ -6,7 +6,8 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [customers, setCustomers] = useState([{"id":1,"name":"john","email":"none","accounts":[]}])
+  const [customers, setCustomers] = useState([{"id":1,"name":"john","email":"none","accounts":[]},
+  {"id":2,"name":"jane","email":"janedoe@gmail.com","accounts":[]}])
   const [accounts, setAccounts] = useState([])
   const [selectedCustomer, setSelectedCustomer] = useState(null)
 
